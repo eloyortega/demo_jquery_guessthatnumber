@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<style>
+		* {
+			font-family: helvetica;
+			padding: 0;
+			margin: 0;
+			color: #666;
+			box-sizing: border-box;
+		}
+
+		#container {
+			max-width:500px;
+			margin: 40px auto;
+			border: 1px solid #000;
+		}
+
+		.prod {
+			width: 289px;
+			border: 1px solid #000;
+			margin: 5px;
+			display: inline-block;
+			vertical-align: top;
+			padding: 20px;
+			height: 430px;
+		}
+
+		.prod img {
+			max-width: 100%;
+			border: 4px double #000;
+			border-radius: 10px;
+			margin: 10px 0px;
+		}
+
+		.prod h5 {
+			color: #F00;
+		}
+
+		.btn {
+			display: inline-block;
+			background-color: #f00;
+			color: #fff;
+			text-decoration: none;
+			padding: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<h1>you have 10 tries to find a number between 0 and 10.</h1>
+		<div id="result"></div>
+		<input type="text" name="guess">
+		<button id="awr">Guess the number</button>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		var n = (Math.random()) * 10;
+		n = Math.round(n);
+		console.log(n);
+		tries = 0;
+		$('#awr').click(function() {
+			++tries;
+			console.log(tries);
+			if (tries < 10) {
+				guessed = $('input').val();
+				if (guessed > n) {
+					x = 'too high';
+				} else if (guessed < n) {
+					x = 'too low';
+				} else {
+					x = 'Correct Answer, YOU WIN!!!!!';
+				};
+				$('#result').append(`<p> ${tries} : You guessed-${guessed}. ${x}</p>`);
+				if (x == 'Correct Answer, YOU WIN!!!!!') {
+					$('p').last().css({
+						color: 'green',
+						fontSize: '18px',
+						fontWeight: 'bold'
+					});
+					$('input').attr('disabled', 'disabled');
+				}
+				$('input').val('');
+			} else {
+				$('#result').append('<p>you lose. Refresh to play again</p>');
+				$('input, #awr').attr('disabled', 'disabled');
+			};
+		});
+	</script>
+</body></html>
